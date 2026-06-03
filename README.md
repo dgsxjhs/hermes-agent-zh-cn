@@ -158,19 +158,18 @@ powershell -ExecutionPolicy Bypass -File .\scripts\update-desktop-zh.ps1
 - 欢迎文案已汉化
 - 右侧文件区空状态已汉化
 
+![首页汉化预览](docs/screenshots/home-zh-cn.png)
+
 ### 2. 设置页汉化 + 语言切换
 
 - `Appearance / 外观` 页面已补上语言切换入口
 - 支持 `English / 简体中文`
 - 常用设置分组和说明文案已大面积汉化
 
-> 说明：当前仓库先把截图说明和结构补齐。  
-> 如果后续补进实际 PNG 截图，会直接放到 `docs/screenshots/` 目录，并在这里展示。
+![设置页与语言切换预览](docs/screenshots/settings-language-zh-cn.png)
 
 推荐后续继续补的截图包括：
 
-- 首页
-- 设置页
 - 技能页
 - 消息平台页
 - 更新弹窗
