@@ -1,24 +1,47 @@
 # Hermes Desktop 简体中文补丁
 
-这是一个给 `Hermes Agent` Windows 桌面版准备的简体中文补丁仓库。
+给 `Hermes Agent` Windows 桌面版准备的简体中文补丁仓库。
 
-它不是官方完整源码仓库，也不是整仓 fork；这里放的是：
+这个仓库不是官方完整源码，也不是整仓 fork。它只保留了这次汉化真正需要的文件，目标很明确：
 
-1. 桌面端汉化后的前端文件
-2. 中英切换支持
-3. 一键重打脚本
-4. 一键更新后重新套用汉化的脚本
+- 给 Hermes Desktop 补上简体中文界面
+- 支持中英切换
+- 支持更新后“一键重新打回中文”
 
 适合这类用户：
 
 - 已经装好了 Windows 版 Hermes Desktop
 - 想把桌面界面改成简体中文
-- 更新桌面版后，希望一键把中文重新打回去
+- 不想每次更新后重新手工改文件
 
-## 仓库内容
+## 现在能做什么
+
+目前这套补丁已经覆盖了桌面端的大部分高频界面，包括：
+
+- 设置页和语言切换入口
+- 首次安装页
+- 首次登录引导
+- 更新弹窗
+- 首页欢迎文案
+- 左侧主导航
+- 技能与工具页
+- 消息平台页
+- 产物页
+- MCP / API 密钥 / 网关 / 关于页
+- 右侧文件区、搜索区、会话菜单、部分弹窗
+
+说明一下：
+
+- **模型名**
+- **厂商名**
+- **日志原文**
+
+这些内容大多保留英文，这是故意的。这样排障时不容易和官方文档对不上。
+
+## 仓库结构
 
 - `apps/desktop/src/...`
-  只包含这次汉化需要覆盖的桌面端文件
+  这次汉化需要覆盖的桌面端文件
 - `scripts/reapply-desktop-zh.ps1`
   把本仓库里的汉化文件同步到 Windows 版 Hermes，并重新打包
 - `scripts/update-desktop-zh.ps1`
@@ -36,20 +59,16 @@
 %LOCALAPPDATA%\hermes\hermes-agent
 ```
 
-## 1. 获取这个补丁仓库
+## 快速开始
 
-把这个仓库 clone 到任意你方便放的位置。
-
-例如：
+### 1. 获取这个补丁仓库
 
 ```powershell
 git clone https://github.com/dgsxjhs/hermes-agent-zh-cn.git
 cd hermes-agent-zh-cn
 ```
 
-## 2. 首次套用汉化
-
-在 PowerShell 里进入这个仓库目录后运行：
+### 2. 首次套用汉化
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\reapply-desktop-zh.ps1
@@ -63,7 +82,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\reapply-desktop-zh.ps1
 4. 自动重新打包桌面版
 5. 自动重新打开 Hermes
 
-## 3. Hermes 更新后重新打中文
+### 3. Hermes 更新后重新打中文
 
 如果官方桌面版更新后界面又变回英文，直接运行：
 
@@ -79,7 +98,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\update-desktop-zh.ps1
 4. 重新同步本仓库里的汉化文件
 5. 自动类型检查、重新打包并重启 Hermes
 
-## 可选参数
+## 常用参数
 
 只检查汉化文件是否齐全，不打包：
 
@@ -99,23 +118,54 @@ powershell -ExecutionPolicy Bypass -File .\scripts\reapply-desktop-zh.ps1 -SkipB
 powershell -ExecutionPolicy Bypass -File .\scripts\reapply-desktop-zh.ps1 -SkipLaunch
 ```
 
-## 说明
+## 常见问题
 
-这不是官方内置中文，而是本地补丁。
+### 1. 为什么更新后中文又没了
 
-所以如果官方后面改了桌面端结构，可能会出现：
+因为这不是官方内置中文，而是本地补丁。  
+官方桌面版一更新，原文件可能会被覆盖，所以需要重新跑：
 
-1. 脚本还能跑，但有些页面又出现英文
-2. 打包时报错
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\update-desktop-zh.ps1
+```
 
-这时通常不是你操作错了，而是上游版本结构变了，需要继续补补丁。
+### 2. 为什么 About 页面还是旧版本号
 
-## 关于版权和来源
+有时桌面端右下角或 About 页显示的是静态版本号，但下面的提交号已经变了。  
+简单理解就是：
 
-本仓库只提供桌面端汉化覆盖文件和辅助脚本，用来配合官方项目使用。
+- **版本号文本** 可能没跟着更新
+- **实际代码提交** 已经更新了
+
+所以判断是否真的更新成功，最好结合：
+
+- 当前提交号
+- 更新提示
+- 实际功能是否已变更
+
+### 3. 为什么有些地方还是英文
+
+这套补丁已经覆盖了大部分常用区域，但 Hermes 官方后续一直在变，难免会有漏网之鱼。  
+如果你发现明显漏掉的英文界面，欢迎提 issue 或自己补一版再提 PR。
+
+## 界面预览
+
+这个仓库后面会继续补几张实际界面截图，方便第一次来的用户快速判断效果。
+
+如果你已经在用这套补丁，也欢迎补充：
+
+- 首页
+- 设置页
+- 技能页
+- 消息平台页
+- 更新弹窗
+
+## 版权和来源
+
+本仓库基于 Hermes 官方项目的桌面端源码改动而来，只保留汉化补丁所需文件。
 
 Hermes Agent 官方项目：
 
-- https://github.com/NousResearch/hermes-agent
+- [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 
-如果你要长期使用，建议同时关注官方仓库更新。
+官方项目使用 MIT 许可证，本仓库也沿用 MIT。
