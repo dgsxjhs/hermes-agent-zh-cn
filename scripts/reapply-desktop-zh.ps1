@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
-  [string]$SourceRoot,
-  [string]$InstallRoot = "$env:LOCALAPPDATA\\hermes\\hermes-agent",
+  [string]$SourceRoot = "\\wsl$\Ubuntu-D\home\leoai\.hermes\hermes-agent",
+  [string]$InstallRoot = "$env:LOCALAPPDATA\hermes\hermes-agent",
   [switch]$CheckOnly,
   [switch]$SkipBuild,
   [switch]$SkipLaunch
@@ -9,44 +9,41 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-if (-not $SourceRoot) {
-  $SourceRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
-}
-
 $relativeFiles = @(
-  "apps\\desktop\\src\\app\\agents\\index.tsx",
-  "apps\\desktop\\src\\app\\artifacts\\index.tsx",
-  "apps\\desktop\\src\\app\\chat\\composer\\context-menu.tsx",
-  "apps\\desktop\\src\\app\\chat\\composer\\index.tsx",
-  "apps\\desktop\\src\\app\\chat\\index.tsx",
-  "apps\\desktop\\src\\app\\chat\\sidebar\\index.tsx",
-  "apps\\desktop\\src\\app\\chat\\sidebar\\session-actions-menu.tsx",
-  "apps\\desktop\\src\\app\\command-center\\index.tsx",
-  "apps\\desktop\\src\\app\\cron\\index.tsx",
-  "apps\\desktop\\src\\app\\messaging\\index.tsx",
-  "apps\\desktop\\src\\app\\right-sidebar\\index.tsx",
-  "apps\\desktop\\src\\app\\settings\\about-settings.tsx",
-  "apps\\desktop\\src\\app\\settings\\appearance-settings.tsx",
-  "apps\\desktop\\src\\app\\settings\\config-settings.tsx",
-  "apps\\desktop\\src\\app\\settings\\gateway-settings.tsx",
-  "apps\\desktop\\src\\app\\settings\\index.tsx",
-  "apps\\desktop\\src\\app\\settings\\keys-settings.tsx",
-  "apps\\desktop\\src\\app\\settings\\mcp-settings.tsx",
-  "apps\\desktop\\src\\app\\settings\\model-settings.tsx",
-  "apps\\desktop\\src\\app\\settings\\sessions-settings.tsx",
-  "apps\\desktop\\src\\app\\shell\\gateway-menu-panel.tsx",
-  "apps\\desktop\\src\\app\\shell\\model-menu-panel.tsx",
-  "apps\\desktop\\src\\app\\shell\\titlebar-controls.tsx",
-  "apps\\desktop\\src\\app\\skills\\index.tsx",
-  "apps\\desktop\\src\\components\\chat\\intro.tsx",
-  "apps\\desktop\\src\\components\\desktop-install-overlay.tsx",
-  "apps\\desktop\\src\\components\\desktop-onboarding-overlay.tsx",
-  "apps\\desktop\\src\\components\\model-visibility-dialog.tsx",
-  "apps\\desktop\\src\\app\\updates-overlay.tsx",
-  "apps\\desktop\\src\\i18n\\catalog.ts",
-  "apps\\desktop\\src\\i18n\\index.tsx",
-  "apps\\desktop\\src\\main.tsx",
-  "apps\\desktop\\src\\store\\locale.ts"
+  "apps\desktop\src\app\agents\index.tsx",
+  "apps\desktop\src\app\artifacts\index.tsx",
+  "apps\desktop\src\app\chat\composer\context-menu.tsx",
+  "apps\desktop\src\app\chat\composer\index.tsx",
+  "apps\desktop\src\app\chat\index.tsx",
+  "apps\desktop\src\app\chat\sidebar\index.tsx",
+  "apps\desktop\src\app\chat\sidebar\session-actions-menu.tsx",
+  "apps\desktop\src\app\command-center\index.tsx",
+  "apps\desktop\src\app\cron\index.tsx",
+  "apps\desktop\src\app\messaging\index.tsx",
+  "apps\desktop\src\app\profiles\index.tsx",
+  "apps\desktop\src\app\right-sidebar\index.tsx",
+  "apps\desktop\src\app\settings\about-settings.tsx",
+  "apps\desktop\src\app\settings\appearance-settings.tsx",
+  "apps\desktop\src\app\settings\config-settings.tsx",
+  "apps\desktop\src\app\settings\gateway-settings.tsx",
+  "apps\desktop\src\app\settings\index.tsx",
+  "apps\desktop\src\app\settings\keys-settings.tsx",
+  "apps\desktop\src\app\settings\mcp-settings.tsx",
+  "apps\desktop\src\app\settings\model-settings.tsx",
+  "apps\desktop\src\app\settings\sessions-settings.tsx",
+  "apps\desktop\src\app\shell\gateway-menu-panel.tsx",
+  "apps\desktop\src\app\shell\model-menu-panel.tsx",
+  "apps\desktop\src\app\shell\titlebar-controls.tsx",
+  "apps\desktop\src\app\skills\index.tsx",
+  "apps\desktop\src\components\chat\intro.tsx",
+  "apps\desktop\src\components\desktop-install-overlay.tsx",
+  "apps\desktop\src\components\desktop-onboarding-overlay.tsx",
+  "apps\desktop\src\components\model-visibility-dialog.tsx",
+  "apps\desktop\src\app\updates-overlay.tsx",
+  "apps\desktop\src\i18n\catalog.ts",
+  "apps\desktop\src\i18n\index.tsx",
+  "apps\desktop\src\main.tsx",
+  "apps\desktop\src\store\locale.ts"
 )
 
 function Assert-PathExists {
@@ -103,8 +100,8 @@ function Invoke-NpmStep {
 Assert-PathExists -Path $SourceRoot -Label "Source root"
 Assert-PathExists -Path $InstallRoot -Label "Install root"
 
-$desktopRoot = Join-Path $InstallRoot "apps\\desktop"
-$exePath = Join-Path $desktopRoot "release\\win-unpacked\\Hermes.exe"
+$desktopRoot = Join-Path $InstallRoot "apps\desktop"
+$exePath = Join-Path $desktopRoot "release\win-unpacked\Hermes.exe"
 
 Assert-PathExists -Path $desktopRoot -Label "Desktop app root"
 
